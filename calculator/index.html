@@ -30,15 +30,7 @@
 		});
 		
 		$('#level').change(function(){
-			var levelFactor = 0;
-			var level = $(this).val();
-			if(level < 33)
-				levelFactor = 10;
-			else if(level > 33 && level < 66)
-				levelFactor = 100;
-			else if(level > 66)
-				levelFactor = 1000;
-			operands(levelFactor);
+			operands($(this).val());
 		});
 	});
 	
@@ -54,21 +46,25 @@
 </script>
 </head>
 <body>
-<div style="text-align: center;">
-	<label for="level">Level:</label>
-	<input type="range" name="level" id="level" value="50" min="0" max="100" />
-	<h1><label class="operand" id="op1"/></h1>
-	<select name="operator" id="operator">
-		<option value="addition">+</option>
-		<option value="substraction">-</option>
-		<option value="multiplication">x</option>
-		<option value="division">&divide;</option>
-	</select>
-	<h1><label class="operand" id="op2"/></h1>
-	<h1>=</h1>
-	<input type="text" name="result" id="result" value=""/>
-	<button type="submit" id="evaluate">Right ?</button>
-	<h2><label class="feedback" id="feedback"/></h2>
+<div data-role="page"> 
+	<div data-role="content">
+		<div style="position: absolute; text-align: center;">
+			<label for="level">Difficulty level:</label>
+			<input type="range" name="level" id="level" value="500" min="0" max="1000" />
+			<h1><label class="operand" id="op1"/></h1>
+			<select name="operator" id="operator" data-inline="true">
+				<option value="addition">+</option>
+				<option value="substraction">-</option>
+				<option value="multiplication">x</option>
+				<option value="division">&divide;</option>
+			</select>
+			<h1><label class="operand" id="op2"/></h1>
+			<h1>=</h1>
+			<input type="text" name="result" id="result"/>
+			<button type="submit" id="evaluate">Right ?</button>
+			<h2><label class="feedback" id="feedback"/></h2>
+		</div>
+	</div>
 </div>
 </body>
 </html>
