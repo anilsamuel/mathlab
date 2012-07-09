@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Mathlab - Calculator</title>
+<link rel="stylesheet"  href="../jquery-mobile/demos/css/themes/default/jquery.mobile-1.1.0.css" />
+<script type="text/javascript"
+	src="../jquery-mobile/demos/js/jquery.js"></script>
+<script type="text/javascript"
+	src="../jquery-mobile/demos/js/jquery.mobile-1.1.0.min.js"></script>
+<script>
+	$(document).ready(function(){
+		var op1 = Math.floor((Math.random()*10)+1);
+		var op2 = Math.floor((Math.random()*10)+1);
+		
+		$('#op1').text(op1);
+		$('#op2').text(op2);
+		$('#feedback').text('Good luck');
+		
+		$('#evaluate').click(function(){
+			var operator = $('#operator').val();
+			var result;
+			if(operator == 'addition')
+				result = parseInt($('#op1').text()) + parseInt($('#op2').text());
+			else if(operator == 'substraction')
+				result = parseInt($('#op1').text()) - parseInt($('#op2').text());
+			else if(operator == 'multiplication')
+				result = parseInt($('#op1').text()) * parseInt($('#op2').text());
+			else if(operator == 'division')
+				result = parseInt($('#op1').text()) / parseInt($('#op2').text());
+			console.log();
+			if(parseInt($('#result').val()) == result)
+				$('#feedback').text('Excellent');
+			else
+				$('#feedback').text('Almost there');
+		});
+	});
+</script>
+</head>
+<body>
+<div style="text-align: center;">
+	<h1><label class="operand" id="op1"/></h1>
+	<select name="operator" id="operator" class="ui-link-inherit">
+		<option value="addition">+</option>
+		<option value="substraction">-</option>
+		<option value="multiplication">x</option>
+		<option value="division">&divide;</option>
+	</select>
+	<h1><label class="operand" id="op2"/></h1>
+	<h1>=</h1>
+	<input type="text" name="result" id="result" value=""/>
+	<button type="submit" id="evaluate">Right ?</button>
+	<h2><label class="feedback" id="feedback"/></h2>
+</div>
+</body>
+</html>
