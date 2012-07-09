@@ -8,6 +8,8 @@
 <script type="text/javascript"
 	src="../jquery-mobile/demos/js/jquery.mobile-1.1.0.min.js"></script>
 <script>
+	var total = 0;
+	var rights = 0;
 	$(document).ready(function(){
 		operands(10);
 		$('input[type=number]').hide();
@@ -22,11 +24,15 @@
 				result = parseInt($('#op1').text()) * parseInt($('#op2').text());
 			else if(operator == 'division')
 				result = parseInt($('#op1').text()) / parseInt($('#op2').text());
-			console.log();
-			if(parseInt($('#result').val()) == result)
+			total++;
+			if(parseInt($('#result').val()) == result){
+				rights++;
 				$('#feedback').text('Excellent');
+			}
 			else
 				$('#feedback').text('Almost there');
+			$('#score').text('Score: ' + score());
+			operands($('#level').val());
 		});
 		
 		$('#level').change(function(){
@@ -34,13 +40,15 @@
 		});
 	});
 	
+	function score(){
+		return rights.toString() + '/' + total.toString();
+	}
 	function operands(levelFactor){
 		var op1 = Math.floor((Math.random()*levelFactor)+1);
 		var op2 = Math.floor((Math.random()*levelFactor)+1);
 		
 		$('#op1').text(op1);
 		$('#op2').text(op2);
-		$('#feedback').text('Good luck');
 		$('#result').val('');
 	}
 </script>
@@ -50,7 +58,7 @@
 	<div data-role="content">
 		<div style="position: absolute; text-align: center;">
 			<label for="level">Difficulty level:</label>
-			<input type="range" name="level" id="level" value="500" min="0" max="1000" />
+			<input type="range" name="level" id="level" value="10" min="0" max="1000" />
 			<h1><label class="operand" id="op1"/></h1>
 			<select name="operator" id="operator" data-inline="true">
 				<option value="addition">+</option>
@@ -62,7 +70,8 @@
 			<h1>=</h1>
 			<input type="text" name="result" id="result"/>
 			<button type="submit" id="evaluate">Right ?</button>
-			<h2><label class="feedback" id="feedback"/></h2>
+			<h2><label class="score" id="score"/></h2>
+			<h3><label class="feedback" id="feedback"/></h3>
 		</div>
 	</div>
 </div>
