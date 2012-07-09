@@ -9,13 +9,8 @@
 	src="../jquery-mobile/demos/js/jquery.mobile-1.1.0.min.js"></script>
 <script>
 	$(document).ready(function(){
-		var op1 = Math.floor((Math.random()*10)+1);
-		var op2 = Math.floor((Math.random()*10)+1);
-		
-		$('#op1').text(op1);
-		$('#op2').text(op2);
-		$('#feedback').text('Good luck');
-		
+		operands(10);
+		$('input[type=number]').hide();
 		$('#evaluate').click(function(){
 			var operator = $('#operator').val();
 			var result;
@@ -33,13 +28,37 @@
 			else
 				$('#feedback').text('Almost there');
 		});
+		
+		$('#level').change(function(){
+			var levelFactor = 0;
+			var level = $(this).val();
+			if(level < 33)
+				levelFactor = 10;
+			else if(level > 33 && level < 66)
+				levelFactor = 100;
+			else if(level > 66)
+				levelFactor = 1000;
+			operands(levelFactor);
+		});
 	});
+	
+	function operands(levelFactor){
+		var op1 = Math.floor((Math.random()*levelFactor)+1);
+		var op2 = Math.floor((Math.random()*levelFactor)+1);
+		
+		$('#op1').text(op1);
+		$('#op2').text(op2);
+		$('#feedback').text('Good luck');
+		$('#result').val('');
+	}
 </script>
 </head>
 <body>
 <div style="text-align: center;">
+	<label for="level">Level:</label>
+	<input type="range" name="level" id="level" value="50" min="0" max="100" />
 	<h1><label class="operand" id="op1"/></h1>
-	<select name="operator" id="operator" class="ui-link-inherit">
+	<select name="operator" id="operator">
 		<option value="addition">+</option>
 		<option value="substraction">-</option>
 		<option value="multiplication">x</option>
