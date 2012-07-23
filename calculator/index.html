@@ -3,10 +3,9 @@
 <head>
 	<title>Mathlab - Calculator</title>
 <link rel="stylesheet"  href="../jquery-mobile/demos/css/themes/default/jquery.mobile-1.1.0.css" />
-<script type="text/javascript"
-	src="../jquery-mobile/demos/js/jquery.js"></script>
-<script type="text/javascript"
-	src="../jquery-mobile/demos/js/jquery.mobile-1.1.0.min.js"></script>
+<script type="text/javascript" src="../jquery-mobile/demos/js/jquery.js"></script>
+<script type="text/javascript" src="../jquery-mobile/demos/js/jquery.mobile-1.1.0.min.js"></script>
+<script type="text/javascript" src="../stopwatch/jquery.stopwatch.js"></script>
 <script>
 	var total = 0;
 	var rights = 0;
@@ -51,12 +50,18 @@
 		$('#op2').text(op2);
 		$('#result').val('');
 	}
+	$(function() {
+		$('#timer').stopwatch();
+	});
 </script>
 </head>
 <body>
 <div data-role="page"> 
 	<div data-role="content">
 		<div style="position: relative; text-align: center; style: width=100%; height: 100%">
+			<div id="timer">
+				<span class="hr">00</span>:<span class="min">00</span>:<span class="sec">00</span>
+			</div>
 			<label for="level">Difficulty level:</label>
 			<input type="range" name="level" id="level" value="10" min="5" max="1000" />
 			<h1><label class="operand" id="op1"/></h1>
