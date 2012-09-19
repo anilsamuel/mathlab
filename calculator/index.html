@@ -12,44 +12,66 @@
 	$(document).ready(function(){
 		operands(10);
 		$('input[type=number]').hide();
-		$('#evaluate').click(function(){
-			var operator = $('#operator').val();
-			var result;
-			if(operator == 'addition')
-				result = parseInt($('#op1').text()) + parseInt($('#op2').text());
-			else if(operator == 'substraction')
-				result = parseInt($('#op1').text()) - parseInt($('#op2').text());
-			else if(operator == 'multiplication')
-				result = parseInt($('#op1').text()) * parseInt($('#op2').text());
-			else if(operator == 'division')
-				result = parseInt($('#op1').text()) / parseInt($('#op2').text());
-			total++;
-			if(parseInt($('#result').val()) == result){
-				rights++;
-				$('#feedback').text('Excellent');
-			}
-			else
-				$('#feedback').text('Almost there');
-			$('#score').text('Score: ' + score());
-			operands($('#level').val());
-		});
 		
 		$('#level').change(function(){
 			operands($(this).val());
 		});
+		
+		$('#evaluate').click(function(){
+			evaluate();
+		});
+		
+		$('#result').focusout(function() {
+			evaluate();
+		});
 	});
+	
+	function evaluate(){
+		var operator = $('#operator').val();
+		var result;
+		if(operator == 'addition')
+			result = parseInt($('#op1').text()) + parseInt($('#op2').text());
+		else if(operator == 'substraction')
+			result = parseInt($('#op1').text()) - parseInt($('#op2').text());
+		else if(operator == 'multiplication')
+			result = parseInt($('#op1').text()) * parseInt($('#op2').text());
+		else if(operator == 'division')
+			result = parseInt($('#op1').text()) / parseInt($('#op2').text());
+		total++;
+		
+		if(parseInt($('#result').val()) == result){
+			rights++;
+			$('#feedback').text('Excellent');
+		}
+		else
+			$('#feedback').text('Almost there');
+		$('#score').text('Score: ' + score());
+		operands($('#level').val());
+	}
 	
 	function score(){
 		return rights.toString() + '/' + total.toString();
 	}
+	
 	function operands(levelFactor){
-		var op1 = Math.floor((Math.random()*levelFactor)+1);
-		var op2 = Math.floor((Math.random()*levelFactor)+1);
+		var op1 = op(levelFactor);
+		var op2 = op(levelFactor);
+		
+		var operator = $('#operator').val();
+		if(levelFactor <= 100 && operator == 'substraction'){
+			while(op1 < op2)
+				op2 = op(levelFactor);
+		}
 		
 		$('#op1').text(op1);
-		$('#op2').text(op2);
+		$('#op2').text(op2);		
 		$('#result').val('');
 	}
+	
+	function op(levelFactor){
+		return Math.floor((Math.random()*levelFactor)+1);
+	}
+	
 	$(function() {
 		$('#timer').stopwatch();
 	});
@@ -73,7 +95,7 @@
 			</select>
 			<h1><label class="operand" id="op2"/></h1>
 			<h1>=</h1>
-			<input type="tel" name="result" id="result"/>
+			<input type="tel" name="result" id="result" onUnfocus="send()"/>
 			<button type="submit" id="evaluate">Right ?</button>
 			<h2><label class="score" id="score"/></h2>
 			<h3><label class="feedback" id="feedback"/></h3>
