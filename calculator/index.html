@@ -17,6 +17,7 @@
 			operands($(this).val());
 		});
 		
+		$("#evaluate").unbind('click');
 		$('#evaluate').click(function(){
 			evaluate();
 		});
