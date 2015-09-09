@@ -16,10 +16,10 @@
 		$('#level').change(function(){
 			operands($(this).val());
 		});
-		
-		$("#evaluate").unbind('click');
+
 		$('#evaluate').click(function(){
 			evaluate();
+			total++;
 		});
 		
 		$('#result').focusout(function() {
@@ -38,7 +38,6 @@
 			result = parseInt($('#op1').text()) * parseInt($('#op2').text());
 		else if(operator == 'division')
 			result = parseInt($('#op1').text()) / parseInt($('#op2').text());
-		total++;
 		
 		if(parseInt($('#result').val()) == result){
 			rights++;
