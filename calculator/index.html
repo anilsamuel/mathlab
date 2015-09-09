@@ -19,11 +19,10 @@
 
 		$('#evaluate').click(function(){
 			evaluate();
-			total++;
 		});
 		
 		$('#result').focusout(function() {
-			evaluate();
+			//evaluate();
 		});
 	});
 	
@@ -45,6 +44,8 @@
 		}
 		else
 			$('#feedback').text('Almost there');
+		total++;
+		
 		$('#score').text('Score: ' + score());
 		operands($('#level').val());
     		$('#result').focus();
