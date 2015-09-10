@@ -39,12 +39,12 @@
 			result = parseInt($('#op1').text()) / parseInt($('#op2').text());
 		
 		if(parseInt($('#result').val()) == result){
-			rights++;
+			rights = (rights - 1)++;
 			$('#feedback').text('Excellent');
 		}
 		else
 			$('#feedback').text('Almost there');
-		total++;
+		total = (total - 1)++;
 		
 		$('#score').text('Score: ' + score());
 		operands($('#level').val());
